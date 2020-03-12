@@ -1,0 +1,42 @@
+
+        public async Task<Account> GetAccountByUsernameAndPassword(string username, string encryptedPassword)
+        {
+            var user = await Accounts.FirstOrDefaultAsync(u => u.Username == username && u.Password == encryptedPassword).ConfigureAwait(false);
+            return user;
+        }
+
+        public async Task AddAccount(Account user)
+        {
+            await Accounts.AddAsync(user).ConfigureAwait(false);
+        }
+
+        public async Task UpdateAccount(Account user)
+        {
+            Accounts.Update(user);
+            await SaveChangesAsync().ConfigureAwait(false);
+            //TODO: Add Error Handling
+        }
+
+        public async Task<List<Account>> GetAllAccountsAsync()
+        {
+            var allAccounts = await Accounts.ToListAsync().ConfigureAwait(false);
+            return allAccounts;
+        }
+
+        public async Task<List<BrushingHistory>> GetAllBrushingHistoryAsync()
+        {
+            var allBrushingHistroy = await BrushingHistories.ToListAsync().ConfigureAwait(false);
+            return allBrushingHistroy;
+        }
+
+        public async Task<List<Module>> GetAllModulesAsync()
+        {
+            var allModules = await Modules.ToListAsync().ConfigureAwait(false);
+            return allModules;
+        }
+
+        public async Task<List<Model>> GetAllModelsAsync()
+        {
+            var allModels = await Models.ToListAsync().ConfigureAwait(false);
+            return allModels;
+        }
